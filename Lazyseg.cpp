@@ -2,6 +2,7 @@ class LazySegtree
 {
 private:
 	int n;
+	ll MOD;
 	vector<ll>tree, lazy;
 	void build(vector<ll>& v, int start, int end, int node)
 	{
@@ -13,17 +14,17 @@ private:
 		int mid = (start + end) / 2;
 		build(v, start, mid, node * 2);
 		build(v, mid + 1, end, node * 2 + 1);
-		tree[node] = tree[node * 2] + tree[node * 2 + 1];
+		tree[node] = (tree[node * 2] + tree[node * 2 + 1]) % MOD;
 	}
 	void lazy_update(int start, int end, int node)
 	{
 		if (lazy[node])
 		{
-			tree[node] = tree[node] + (end - start + 1) * lazy[node];
+			tree[node] = (tree[node] + (end - start + 1) * lazy[node]) % MOD;
 			if (start != end)
 			{
-				lazy[node * 2] = lazy[node * 2] + lazy[node];
-				lazy[node * 2 + 1] = lazy[node * 2 + 1] + lazy[node];
+				lazy[node * 2] = (lazy[node * 2] + lazy[node]) % MOD;
+				lazy[node * 2 + 1] = (lazy[node * 2 + 1] + lazy[node]) % MOD;
 			}
 			lazy[node] = 0;
 		}
@@ -37,18 +38,18 @@ private:
 		}
 		if (left <= start && end <= right)
 		{
-			tree[node] = tree[node] + (end - start + 1) * value;
+			tree[node] = (tree[node] + (end - start + 1) * value) % MOD;;
 			if (start != end)
 			{
-				lazy[node * 2] = lazy[node * 2] + value;
-				lazy[node * 2 + 1] = lazy[node * 2 + 1] + value;
+				lazy[node * 2] = (lazy[node * 2] + value) % MOD;
+				lazy[node * 2 + 1] = (lazy[node * 2 + 1] + value) % MOD;
 			}
 			return;
 		}
 		int mid = (start + end) / 2;
 		update_(start, mid, node * 2, left, right, value);
 		update_(mid + 1, end, node * 2 + 1, left, right, value);
-		tree[node] = tree[node * 2] + tree[node * 2 + 1];
+		tree[node] = (tree[node * 2] + tree[node * 2 + 1]) % MOD;
 	}
 	ll query_(int start, int end, int node, int left, int right)
 	{
@@ -62,12 +63,21 @@ private:
 			return tree[node];
 		}
 		int mid = (start + end) / 2;
-		return query_(start, mid, node * 2, left, right) + query_(mid + 1, end, node * 2 + 1, left, right);
+		return (query_(start, mid, node * 2, left, right) + query_(mid + 1, end, node * 2 + 1, left, right)) % MOD;
 	}
 public:
 	LazySegtree(vector<ll>& v)
 	{
 		n = v.size();
+		MOD = LLONG_MAX;
+		tree.resize(4 * n + 3, 0);
+		lazy.resize(4 * n + 3, 0);
+		build(v, 0, n - 1, 1);
+	}
+	LazySegtree(vector<ll>& v, ll mod)
+	{
+		n = v.size();
+		MOD = mod;
 		tree.resize(4 * n + 3, 0);
 		lazy.resize(4 * n + 3, 0);
 		build(v, 0, n - 1, 1);
