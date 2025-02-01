@@ -33,8 +33,7 @@ private:
 		}
 	}
 public:
-	Segtree(vector<ll>& v) : Segtree(v, LLONG_MAX) {}
-	Segtree(vector<ll>& v, ll mod)
+	Segtree(vector<ll>& v, ll mod = LLONG_MAX)
 	{
 		n = v.size();
 		MOD = mod;
