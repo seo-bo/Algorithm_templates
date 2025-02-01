@@ -1,4 +1,4 @@
-class LazySeg
+class Lazyseg
 {
 private:
 	int n;
@@ -66,7 +66,7 @@ private:
 		return (query_(start, mid, node * 2, left, right) + query_(mid + 1, end, node * 2 + 1, left, right)) % MOD;
 	}
 public:
-	LazySeg(vector<ll>& v, ll mod = LLONG_MAX)
+	Lazyseg(vector<ll>& v, ll mod = LLONG_MAX)
 	{
 		n = v.size();
 		MOD = mod;
