@@ -1,4 +1,4 @@
-class LazySegtree
+class LazySeg
 {
 private:
 	int n;
@@ -66,15 +66,7 @@ private:
 		return (query_(start, mid, node * 2, left, right) + query_(mid + 1, end, node * 2 + 1, left, right)) % MOD;
 	}
 public:
-	LazySegtree(vector<ll>& v)
-	{
-		n = v.size();
-		MOD = LLONG_MAX;
-		tree.resize(4 * n + 3, 0);
-		lazy.resize(4 * n + 3, 0);
-		build(v, 0, n - 1, 1);
-	}
-	LazySegtree(vector<ll>& v, ll mod)
+	LazySeg(vector<ll>& v, ll mod = LLONG_MAX)
 	{
 		n = v.size();
 		MOD = mod;
