@@ -3,7 +3,7 @@ class CCW
 private:
 	vector<pair<ll, ll>>pos1;
 	vector<pair<ll, ll>>pos2;
-	int ccw(pair<ll, ll>a, pair<ll, ll>b, pair<ll, ll>c)
+	int ccw(pair<ll, ll>&a, pair<ll, ll>&b, pair<ll, ll>&c)
 	{
 		ll temp = a.first * b.second + b.first * c.second + c.first * a.second;
 		temp -= a.second * b.first + b.second * c.first + c.second * a.first;
