@@ -4,7 +4,7 @@ private:
 	int n;
 	ll MOD;
 	vector<ll>tree;
-	ll query_(int l, int r)
+	ll get_sum(int l, int r)
 	{
 		ll left = 0, right = 0;
 		l += n, r += n;
@@ -23,7 +23,7 @@ private:
 		}
 		return (left + right) % MOD;
 	}
-	void update_(int index, ll delta)
+	void update_tree(int index, ll delta)
 	{
 		index += n;
 		tree[index] = delta % MOD;
@@ -49,10 +49,10 @@ public:
 	}
 	ll query(int left, int right)
 	{
-		return query_(left - 1, right);
+		return get_sum(left - 1, right);
 	}
 	void update(int idx, ll value)
 	{
-		update_(idx - 1, value);
+		update_tree(idx - 1, value);
 	}
 };

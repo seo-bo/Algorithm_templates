@@ -29,7 +29,7 @@ private:
 			lazy[node] = 0;
 		}
 	}
-	void update_(int start, int end, int node, int left, int right, ll value)
+	void update_tree(int start, int end, int node, int left, int right, ll value)
 	{
 		lazy_update(start, end, node);
 		if (start > right || end < left)
@@ -51,7 +51,7 @@ private:
 		update_(mid + 1, end, node * 2 + 1, left, right, value);
 		tree[node] = (tree[node * 2] + tree[node * 2 + 1]) % MOD;
 	}
-	ll query_(int start, int end, int node, int left, int right)
+	ll get_sum(int start, int end, int node, int left, int right)
 	{
 		lazy_update(start, end, node);
 		if (start > right || end < left)
@@ -80,7 +80,7 @@ public:
 		{
 			swap(left, right);
 		}
-		update_(0, n - 1, 1, left, right, value);
+		update_tree(0, n - 1, 1, left, right, value);
 	}
 	ll query(int left, int right)
 	{
@@ -88,6 +88,6 @@ public:
 		{
 			swap(left, right);
 		}
-		return query_(0, n - 1, 1, left, right);
+		return get_sum(0, n - 1, 1, left, right);
 	}
 };

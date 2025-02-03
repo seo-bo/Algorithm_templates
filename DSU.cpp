@@ -3,11 +3,11 @@ class DSU
 private:
 	int n;
 	vector<int>parent, rank;
-	int find_(int root)
+	int get_path(int root)
 	{
 		return (parent[root] == root) ? parent[root] : parent[root] = find_(parent[root]);
 	}
-	void merge_(int root1, int root2)
+	void merger(int root1, int root2)
 	{
 		int r1 = find_(root1), r2 = find_(root2);
 		if (r1 != r2)
@@ -36,10 +36,10 @@ public:
 	}
 	int find(int root)
 	{
-		return find_(root);
+		return get_path(root);
 	}
 	void merge(int root1, int root2)
 	{
-		merge_(root1, root2);
+		merger(root1, root2);
 	}
 };
