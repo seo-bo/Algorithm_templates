@@ -3,7 +3,8 @@ class KMP
 private:
 	string base, target;
 	int base_len, target_len;
-	vector<int> fail_()
+	vector<int>pattern;
+	vector<int> get_fail()
 	{
 		vector<int>pattern(target_len, 0);
 		int left = 0;
@@ -20,7 +21,7 @@ private:
 		}
 		return pattern;
 	}
-	vector<int> matching_(vector<int>pattern)
+	vector<int> matching()
 	{
 		vector<int>count;
 		int left = 0;
@@ -46,13 +47,15 @@ public:
 	{
 		base_len = s1.size();
 		target_len = s2.size();
+		pattern.resize(target_len,0);
+		get_fail();
 	}
 	vector<int> fail()
 	{
-		return fail_();
+		return pattern;
 	}
-	vector<int> matching()
+	vector<int> match()
 	{
-		return matching_(fail());
+		return matching();
 	}
 };
