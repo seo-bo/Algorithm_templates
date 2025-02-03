@@ -1,4 +1,4 @@
-class Convex_hull
+.class Convex_hull 
 {
 private:
 	vector<pair<ll, ll>>point;
