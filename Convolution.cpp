@@ -2,7 +2,6 @@ class Convolution
 {
 private:
 	vector<complex<double>>v1, v2;
-	vector<complex<double>>factor;
 	int len;
 	void fft(vector<complex<double>>& v, int pivot)
 	{
@@ -22,7 +21,8 @@ private:
 		}
 		for (int i = 2; i <= len; i <<= 1)
 		{
-			complex<double> z = factor[i];
+			double angle = 2 * acos(-1.0) * pivot / i;
+			complex<double> z(cos(angle), sin(angle));
 			for (int j = 0; j < len; j += i)
 			{
 				complex<double> w(1, 0);
@@ -71,12 +71,7 @@ public:
 			n <<= 1;
 		}
 		len = n;
-		v1.resize(len), v2.resize(len), factor.resize(len + 1);
-		for (int i = 2; i <= len; i <<= 1)
-		{
-			double angle = 2 * acos(-1.0) / i;
-			factor[i] = complex<double>(cos(angle), sin(angle));
-		}
+		v1.resize(len), v2.resize(len);
 	}
 	vector<int> solve()
 	{
