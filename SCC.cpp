@@ -1,8 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
 class SCC //https://github.com/seo-bo/Algorithm_templates/blob/main/SCC.cpp 
 {
 private:
 	int V, cnt, ver;
-	vector<vector<int>>graph;
+	vector<vector<int>>graph, DAG_graph;
 	vector<int>low, num, id, stk;
 	vector<bool>in;
 	void tarjan(int node)
@@ -38,6 +42,22 @@ private:
 			ver++;
 		}
 	}
+	vector<vector<int>>DAG()
+	{
+		int len = *max_element(id.begin() + 1, id.end()) + 1;
+		DAG_graph.resize(len);
+		for (int i = 1; i <= V; ++i)
+		{
+			for (auto& j : graph[i])
+			{
+				if (id[i] != id[j])
+				{
+					DAG_graph[id[i]].push_back(id[j]);
+				}
+			}
+		}
+		return DAG_graph;
+	}
 public:
 	SCC(int vertex, vector<vector<int>>& G)
 	{
@@ -48,13 +68,27 @@ public:
 		id.resize(V + 1, -1);
 		in.resize(V + 1, false);
 		cnt = 0, ver = 1;
+		for (int i = 1; i <= V; ++i)
+		{
+			if (!num[i])
+			{
+				tarjan(i);
+			}
+		}
 	}
 	vector<int>get_id()
 	{
-		for (int i = 1; i <= V; ++i)
-		{
-			tarjan(i);
-		}
 		return id;
 	}
+	vector<vector<int>>get_DAG()
+	{
+		return DAG();
+	}
 };
+
+
+int main(void)
+{
+	cin.tie(0)->sync_with_stdio(0);
+	return 0;
+}

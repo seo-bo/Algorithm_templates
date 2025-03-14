@@ -5,11 +5,11 @@ private:
 	vector<int>parent, rank;
 	int get_path(int root)
 	{
-		return (parent[root] == root) ? parent[root] : parent[root] = find_(parent[root]);
+		return (parent[root] == root) ? parent[root] : parent[root] = get_path(parent[root]);
 	}
 	void merger(int root1, int root2)
 	{
-		int r1 = find_(root1), r2 = find_(root2);
+		int r1 = get_path(root1), r2 = get_path(root2);
 		if (r1 != r2)
 		{
 			if (rank[r1] > rank[r2])

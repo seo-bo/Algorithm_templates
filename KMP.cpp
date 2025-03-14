@@ -47,8 +47,7 @@ public:
 	{
 		base_len = s1.size();
 		target_len = s2.size();
-		pattern.resize(target_len,0);
-		get_fail();
+		pattern = get_fail();
 	}
 	vector<int> fail()
 	{
