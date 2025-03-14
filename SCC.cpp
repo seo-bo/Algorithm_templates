@@ -1,4 +1,4 @@
-class SCC
+class SCC //https://github.com/seo-bo/Algorithm_templates/blob/main/SCC.cpp 
 {
 private:
 	int V, cnt, ver;

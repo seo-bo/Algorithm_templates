@@ -1,4 +1,4 @@
-class Segtree
+class Segtree //https://github.com/seo-bo/Algorithm_templates/blob/main/Segtree.cpp
 {
 private:
 	int n;

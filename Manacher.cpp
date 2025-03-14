@@ -1,4 +1,4 @@
-class Manacher
+class Manacher //https://github.com/seo-bo/Algorithm_templates/blob/main/Manacher.cpp
 {
 private:
 	string base;

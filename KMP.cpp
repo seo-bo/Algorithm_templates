@@ -1,4 +1,4 @@
-class KMP
+class KMP //https://github.com/seo-bo/Algorithm_templates/blob/main/KMP.cpp
 {
 private:
 	string base, target;

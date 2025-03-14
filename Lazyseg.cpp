@@ -1,4 +1,4 @@
-class Lazyseg
+class Lazyseg //https://github.com/seo-bo/Algorithm_templates/blob/main/Lazyseg.cpp
 {
 private:
 	int n;

@@ -1,4 +1,4 @@
-class DSU
+class DSU //https://github.com/seo-bo/Algorithm_templates/blob/main/DSU.cpp
 {
 private:
 	int n;

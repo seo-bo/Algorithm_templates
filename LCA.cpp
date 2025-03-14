@@ -1,4 +1,4 @@
-class LCA
+class LCA //https://github.com/seo-bo/Algorithm_templates/blob/main/LCA.cpp
 {
 private:
 	int n, P;
