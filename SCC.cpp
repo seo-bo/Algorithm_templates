@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-
 class SCC //https://github.com/seo-bo/Algorithm_templates/blob/main/SCC.cpp 
 {
 private:
@@ -85,10 +81,3 @@ public:
 		return DAG();
 	}
 };
-
-
-int main(void)
-{
-	cin.tie(0)->sync_with_stdio(0);
-	return 0;
-}
