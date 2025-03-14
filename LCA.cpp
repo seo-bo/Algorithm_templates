@@ -13,7 +13,7 @@ private:
 	}
 	void dfs(int d, int parent, int node)
 	{
-		table[d][node] = parent;
+		table[0][node] = parent;
 		depth[node] = d;
 		for (auto& [a, b] : graph[node])
 		{

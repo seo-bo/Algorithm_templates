@@ -47,8 +47,8 @@ private:
 			return;
 		}
 		int mid = (start + end) / 2;
-		update_(start, mid, node * 2, left, right, value);
-		update_(mid + 1, end, node * 2 + 1, left, right, value);
+		update_tree(start, mid, node * 2, left, right, value);
+		update_tree(mid + 1, end, node * 2 + 1, left, right, value);
 		tree[node] = (tree[node * 2] + tree[node * 2 + 1]) % MOD;
 	}
 	ll get_sum(int start, int end, int node, int left, int right)
@@ -63,7 +63,7 @@ private:
 			return tree[node];
 		}
 		int mid = (start + end) / 2;
-		return (query_(start, mid, node * 2, left, right) + query_(mid + 1, end, node * 2 + 1, left, right)) % MOD;
+		return (get_sum(start, mid, node * 2, left, right) + get_sum(mid + 1, end, node * 2 + 1, left, right)) % MOD;
 	}
 public:
 	Lazyseg(vector<ll>& v, ll mod = LLONG_MAX)
