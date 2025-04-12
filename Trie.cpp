@@ -1,4 +1,4 @@
-class Trie
+class Trie https://github.com/seo-bo/Algorithm_templates/blob/main/Trie.cpp
 {
 private:
 	struct Node
