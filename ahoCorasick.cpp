@@ -1,4 +1,4 @@
-class ahoCorasick
+class ahoCorasick https://github.com/seo-bo/Algorithm_templates/blob/main/ahoCorasick.cpp
 {
 private:
 	struct Node
@@ -15,7 +15,7 @@ private:
 		}
 	};
 	Node* root;
-	bool builded;
+	bool built;
 	void add(const string& word, int id)
 	{
 		Node* cur = root;
@@ -98,17 +98,17 @@ private:
 		return ans;
 	}
 public:
-	ahoCorasick() { root = new Node(); builded = false; }
+	ahoCorasick() { root = new Node(); built = false; }
 	void insert(const string& word, int id)
 	{
 		add(word, id);
 	}
 	vector<pair<int, int>> find(const string& word)
 	{
-		if (!builded)
+		if (!built)
 		{
 			build_pattern();
-			builded = true;
+			built = true;
 		}
 		return search(word);
 	}
