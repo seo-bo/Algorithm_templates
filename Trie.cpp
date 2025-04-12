@@ -1,30 +1,20 @@
-class Trie https://github.com/seo-bo/Algorithm_templates/blob/main/Trie.cpp
+class Trie //https ://github.com/seo-bo/Algorithm_templates/blob/main/Trie.cpp
 {
 private:
 	struct Node
 	{
 		bool fin;
-		Node* child[26];
-		Node()
-		{
-			fin = false;
-			for (int i = 0; i < 26; ++i)
-			{
-				child[i] = nullptr;
-			}
-		}
+		map<char, Node*>child;
+		Node() { fin = false; }
 	};
 	Node* root;
 	void destroy(Node* node)
 	{
-		if (node != nullptr)
+		if (node)
 		{
-			for (int i = 0; i < 26; ++i)
+			for (auto& [_, a] : node->child)
 			{
-				if (node->child[i])
-				{
-					destroy(node->child[i]);
-				}
+				destroy(a);
 			}
 			delete node;
 		}
@@ -40,62 +30,42 @@ private:
 			if (node->fin)
 			{
 				node->fin = false;
-				for (int i = 0; i < 26; ++i)
-				{
-					if (node->child[i])
-					{
-						return false;
-					}
-				}
-				return true;
+				return node->child.empty();
 			}
 			return false;
 		}
-		int idx = word[depth] - 'a';
-		if (del(node->child[idx], word, depth + 1))
+		char pivot = word[depth];
+		if (del(node->child[pivot], word, depth + 1))
 		{
-			delete node->child[idx];
-			node->child[idx] = nullptr;
-			if (node->fin)
-			{
-				return false;
-			}
-			for (int i = 0; i < 26; ++i)
-			{
-				if (node->child[i])
-				{
-					return false;
-				}
-			}
-			return true;
+			delete node->child[pivot];
+			node->child.erase(pivot);
+			return (!node->fin && node->child.empty());
 		}
 		return false;
 	}
 	void add(const string& word)
 	{
 		Node* cur = root;
-		for (int i = 0; i < (int)word.size(); ++i)
+		for (auto& i : word)
 		{
-			int idx = word[i] - 'a';
-			if (!cur->child[idx])
+			if (cur->child.find(i) == cur->child.end())
 			{
-				cur->child[idx] = new Node();
+				cur->child[i] = new Node();
 			}
-			cur = cur->child[idx];
+			cur = cur->child[i];
 		}
 		cur->fin = true;
 	}
 	bool search(const string& word)
 	{
 		Node* cur = root;
-		for (int i = 0; i < (int)word.size(); ++i)
+		for (auto& i : word)
 		{
-			int idx = word[i] - 'a';
-			if (!cur->child[idx])
+			if (cur->child.find(i) == cur->child.end())
 			{
 				return false;
 			}
-			cur = cur->child[idx];
+			cur = cur->child[i];
 		}
 		return (cur && cur->fin);
 	}

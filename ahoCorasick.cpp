@@ -1,32 +1,25 @@
-class ahoCorasick //https://github.com/seo-bo/Algorithm_templates/blob/main/ahoCorasick.cpp
+class ahoCorasick //https ://github.com/seo-bo/Algorithm_templates/blob/main/ahoCorasick.cpp
 {
 private:
 	struct Node
 	{
-		Node* child[26], * fail;
+		map<char, Node*>child;
+		Node* fail;
 		vector<int> out;
-		Node()
-		{
-			fail = nullptr;
-			for (int i = 0; i < 26; ++i)
-			{
-				child[i] = nullptr;
-			}
-		}
+		Node() { fail = nullptr; }
 	};
 	Node* root;
 	bool built;
 	void add(const string& word, int id)
 	{
 		Node* cur = root;
-		for (int i = 0; i < (int)word.size(); ++i)
+		for (auto& i : word)
 		{
-			int idx = word[i] - 'a';
-			if (!cur->child[idx])
+			if (cur->child.find(i) == cur->child.end())
 			{
-				cur->child[idx] = new Node();
+				cur->child[i] = new Node();
 			}
-			cur = cur->child[idx];
+			cur = cur->child[i];
 		}
 		cur->out.push_back(id);
 	}
@@ -34,43 +27,32 @@ private:
 	{
 		queue<Node*>q;
 		root->fail = root;
-		for (int i = 0; i < 26; ++i)
+		for (auto& [a, b] : root->child)
 		{
-			if (root->child[i])
-			{
-				root->child[i]->fail = root;
-				q.push(root->child[i]);
-			}
-			else
-			{
-				root->child[i] = root;
-			}
+			b->fail = root;
+			q.push(b);
 		}
 		while (!q.empty())
 		{
 			Node* cur = q.front();
 			q.pop();
-			for (int i = 0; i < 26; ++i)
+			for (auto& [a, b] : cur->child)
 			{
-				Node* temp = cur->child[i];
-				if (temp)
+				Node* f = cur->fail;
+				while (f != root && f->child.find(a) == f->child.end())
 				{
-					Node* f = cur->fail;
-					while (!f->child[i] && f != root)
-					{
-						f = f->fail;
-					}
-					temp->fail = f->child[i];
-					for (auto& j : temp->fail->out)
-					{
-						temp->out.push_back(j);
-					}
-					q.push(temp);
+					f = f->fail;
+				}
+				if (f->child.find(a) == f->child.end())
+				{
+					b->fail = root;
 				}
 				else
 				{
-					cur->child[i] = cur->fail->child[i];
+					b->fail = f->child[a];
 				}
+				b->out.insert(b->out.end(), b->fail->out.begin(), b->fail->out.end());
+				q.push(b);
 			}
 		}
 	}
@@ -80,15 +62,14 @@ private:
 		Node* cur = root;
 		for (int i = 0; i < (int)word.size(); ++i)
 		{
-			int idx = word[i] - 'a';
-			while (!cur->child[idx] && cur != root)
+			char ok = word[i];
+			while (cur != root && cur->child.find(ok) == cur->child.end())
 			{
 				cur = cur->fail;
 			}
-			cur = cur->child[idx];
-			if (!cur)
+			if (cur->child.find(ok) != cur->child.end())
 			{
-				cur = root;
+				cur = cur->child[ok];
 			}
 			for (auto& j : cur->out)
 			{
