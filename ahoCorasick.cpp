@@ -1,4 +1,4 @@
-class ahoCorasick https://github.com/seo-bo/Algorithm_templates/blob/main/ahoCorasick.cpp
+class ahoCorasick //https://github.com/seo-bo/Algorithm_templates/blob/main/ahoCorasick.cpp
 {
 private:
 	struct Node
