@@ -1,4 +1,4 @@
-class Hashing
+class Hashing //https://github.com/seo-bo/Algorithm_templates/blob/main/Hashing.cpp
 {
 private:
 	long long base, MOD, len;
