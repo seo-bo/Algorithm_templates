@@ -2,9 +2,9 @@ class Lazyseg //https://github.com/seo-bo/Algorithm_templates/blob/main/Lazyseg.
 {
 private:
 	int n;
-	ll MOD;
-	vector<ll>tree, lazy;
-	void build(vector<ll>& v, int start, int end, int node)
+	long long MOD;
+	vector<long long>tree, lazy;
+	void build(vector<long long>& v, int start, int end, int node)
 	{
 		if (start == end)
 		{
@@ -29,7 +29,7 @@ private:
 			lazy[node] = 0;
 		}
 	}
-	void update_tree(int start, int end, int node, int left, int right, ll value)
+	void update_tree(int start, int end, int node, int left, int right, long long value)
 	{
 		lazy_update(start, end, node);
 		if (start > right || end < left)
@@ -51,7 +51,7 @@ private:
 		update_tree(mid + 1, end, node * 2 + 1, left, right, value);
 		tree[node] = (tree[node * 2] + tree[node * 2 + 1]) % MOD;
 	}
-	ll get_sum(int start, int end, int node, int left, int right)
+	long long get_sum(int start, int end, int node, int left, int right)
 	{
 		lazy_update(start, end, node);
 		if (start > right || end < left)
@@ -66,7 +66,7 @@ private:
 		return (get_sum(start, mid, node * 2, left, right) + get_sum(mid + 1, end, node * 2 + 1, left, right)) % MOD;
 	}
 public:
-	Lazyseg(vector<ll>& v, ll mod = LLONG_MAX)
+	Lazyseg(vector<long long>& v, long long mod = LLONG_MAX)
 	{
 		n = v.size();
 		MOD = mod;
@@ -74,7 +74,7 @@ public:
 		lazy.resize(4 * n + 3, 0);
 		build(v, 0, n - 1, 1);
 	}
-	void update(int left, int right, ll value)
+	void update(int left, int right, long long value)
 	{
 		if (left > right)
 		{
@@ -82,7 +82,7 @@ public:
 		}
 		update_tree(0, n - 1, 1, left, right, value);
 	}
-	ll query(int left, int right)
+	long long query(int left, int right)
 	{
 		if (left > right)
 		{

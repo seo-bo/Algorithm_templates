@@ -3,10 +3,10 @@ class LCA //https://github.com/seo-bo/Algorithm_templates/blob/main/LCA.cpp
 private:
 	int n, P;
 	vector<int>depth;
-	vector<ll>dist;
+	vector<long long>dist;
 	vector<vector<int>>table;
-	vector<vector<pair<int, ll>>>graph;
-	void psh(int a, int b, ll w)
+	vector<vector<pair<int, long long>>>graph;
+	void psh(int a, int b, long long w)
 	{
 		graph[a].push_back(make_pair(b, w));
 		graph[b].push_back(make_pair(a, w));
@@ -65,7 +65,7 @@ private:
 		}
 		return table[0][a];
 	}
-	ll distance(int a, int b)
+	long long distance(int a, int b)
 	{
 		return dist[a] + dist[b] - 2 * dist[lca(a, b)];
 	}
@@ -78,7 +78,7 @@ public:
 		dist.resize(n + 1, 0);
 		graph.resize(n + 1);
 	}
-	void add_edge(int u, int v, ll w = 0)
+	void add_edge(int u, int v, long long w = 0)
 	{
 		psh(u, v, w);
 	}
@@ -90,7 +90,7 @@ public:
 	{
 		return lca(u, v);
 	}
-	ll get_dist(int u, int v)
+	long long get_dist(int u, int v)
 	{
 		return distance(u, v);
 	}

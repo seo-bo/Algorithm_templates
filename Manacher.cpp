@@ -2,7 +2,7 @@ class Manacher //https://github.com/seo-bo/Algorithm_templates/blob/main/Manache
 {
 private:
 	string base;
-	ll MOD;
+	long long MOD;
 	int len;
 	vector<int> solve()
 	{
@@ -38,14 +38,14 @@ public:
 		len = base.size();
 		MOD = LLONG_MAX;
 	}
-	Manacher(string str, ll mod) : Manacher(str)
+	Manacher(string str, long long mod) : Manacher(str)
 	{
 		MOD = mod;
 	}
-	ll palin()
+	long long palin()
 	{
 		vector<int>R = getR();
-		ll count = 0;
+		long long count = 0;
 		for (int i = 0; i < len; ++i)
 		{
 			count = (count + (R[i] + 1LL) / 2) % MOD;

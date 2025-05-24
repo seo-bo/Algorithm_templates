@@ -1,28 +1,28 @@
-class Convex_hull //https://github.com/seo-bo/Algorithm_templates/blob/main/Convex_hull.cpp
+class Convex_hull //https://github.com/seo-bo/Algorithm_templates/blob/main/Convex_hull
 {
 private:
-	vector<pair<ll, ll>>point;
+	vector<pair<long long, long long>>point;
 	int len;
-	int ccw(pair<ll, ll>& a, pair<ll, ll>& b, pair<ll, ll>& c)
+	int ccw(pair<long long, long long>& a, pair<long long, long long>& b, pair<long long, long long>& c)
 	{
-		ll temp = a.first * b.second + b.first * c.second + c.first * a.second;
+		long long temp = a.first * b.second + b.first * c.second + c.first * a.second;
 		temp -= a.second * b.first + b.second * c.first + c.second * a.first;
 		return (temp < 0) ? -1 : (temp > 0) ? 1 : 0;
 	}
-	ll dist(pair<ll, ll>& a, pair<ll, ll>& b)
+	long long dist(pair<long long, long long>& a, pair<long long, long long>& b)
 	{
 		return (a.first - b.first) * (a.first - b.first) + (a.second - b.second) * (a.second - b.second);
 	}
 public:
-	Convex_hull(vector<pair<ll, ll>>& v)
+	Convex_hull(vector<pair<long long, long long>>& v)
 	{
 		point = v;
 		len = v.size();
 	}
-	vector<pair<ll, ll>> gethull()
+	vector<pair<long long, long long>>gethull()
 	{
-		if(len < 3)
-		{ 
+		if (len < 3)
+		{
 			return point;
 		}
 		int idx = 0;
@@ -34,17 +34,17 @@ public:
 			}
 		}
 		swap(point[0], point[idx]);
-		pair<ll, ll> pivot = point[0];
-		sort(point.begin() + 1, point.end(), [&](pair<ll, ll>& a, pair<ll, ll>& b)
+		pair<long long, long long> pivot = point[0];
+		sort(point.begin() + 1, point.end(), [&](pair<long long, long long>& a, pair<long long, long long>& b)
 			{
-				ll w = ccw(pivot, a, b);
+				long long w = ccw(pivot, a, b);
 				if (!w)
 				{
 					return dist(pivot, a) < dist(pivot, b);
 				}
 				return w > 0;
 			});
-		vector<pair<ll, ll>>hull;
+		vector<pair<long long, long long>>hull;
 		hull.push_back(point[0]);
 		hull.push_back(point[1]);
 		for (int i = 2; i < len; ++i)

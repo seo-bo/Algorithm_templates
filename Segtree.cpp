@@ -2,11 +2,11 @@ class Segtree //https://github.com/seo-bo/Algorithm_templates/blob/main/Segtree.
 {
 private:
 	int n;
-	ll MOD;
-	vector<ll>tree;
-	ll get_sum(int l, int r)
+	long long MOD;
+	vector<long long>tree;
+	long long get_sum(int l, int r)
 	{
-		ll left = 0, right = 0;
+		long long left = 0, right = 0;
 		l += n, r += n;
 		while (l < r)
 		{
@@ -23,7 +23,7 @@ private:
 		}
 		return (left + right) % MOD;
 	}
-	void update_tree(int index, ll delta)
+	void update_tree(int index, long long delta)
 	{
 		index += n;
 		tree[index] = delta % MOD;
@@ -33,7 +33,7 @@ private:
 		}
 	}
 public:
-	Segtree(vector<ll>& v, ll mod = LLONG_MAX)
+	Segtree(vector<long long>& v, long long mod = LLONG_MAX)
 	{
 		n = v.size();
 		MOD = mod;
@@ -47,11 +47,11 @@ public:
 			tree[i] = (tree[i << 1] + tree[(i << 1) | 1]) % MOD;
 		}
 	}
-	ll query(int left, int right)
+	long long query(int left, int right)
 	{
 		return get_sum(left - 1, right);
 	}
-	void update(int idx, ll value)
+	void update(int idx, long long value)
 	{
 		update_tree(idx - 1, value);
 	}
